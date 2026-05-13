@@ -3,10 +3,13 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import Logo from "./Logo";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { t } from "@/lib/i18n";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { lang, toggleLang } = useLanguage();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -28,38 +31,61 @@ export default function Navbar() {
             <Logo size="sm" />
           </Link>
 
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-6">
             <Link
               href="/listings"
               className={`relative text-sm font-medium transition-colors after:absolute after:bottom-[-2px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all hover:after:w-full ${
                 scrolled ? "text-gray-700 hover:text-primary" : "text-white/90 hover:text-white"
               }`}
             >
-              Imóveis
+              {t("nav.imoveis", lang)}
             </Link>
+            <button
+              onClick={toggleLang}
+              className={`px-3 py-1.5 rounded-full text-xs font-semibold border transition-colors ${
+                scrolled
+                  ? "border-gray-300 text-gray-600 hover:border-primary hover:text-primary"
+                  : "border-white/30 text-white/80 hover:border-white hover:text-white"
+              }`}
+              title={t("lang.switchTitle", lang)}
+            >
+              {t("lang.switch", lang)}
+            </button>
             <Link
               href="/cadastrar"
               className="bg-primary text-white px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-primary-dark transition-all hover:shadow-lg hover:shadow-primary/25 active:scale-95"
             >
-              Listar Imóvel
+              {t("nav.listar", lang)}
             </Link>
           </div>
 
-          <button
-            className={`md:hidden p-2 rounded-lg transition-colors ${
-              scrolled ? "hover:bg-gray-100 text-gray-700" : "hover:bg-white/10 text-white"
-            }`}
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Menu"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              {menuOpen ? (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              )}
-            </svg>
-          </button>
+          <div className="flex items-center gap-2 md:hidden">
+            <button
+              onClick={toggleLang}
+              className={`px-2.5 py-1 rounded-full text-xs font-semibold border transition-colors ${
+                scrolled
+                  ? "border-gray-300 text-gray-600"
+                  : "border-white/30 text-white/80"
+              }`}
+            >
+              {t("lang.switch", lang)}
+            </button>
+            <button
+              className={`p-2 rounded-lg transition-colors ${
+                scrolled ? "hover:bg-gray-100 text-gray-700" : "hover:bg-white/10 text-white"
+              }`}
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-label="Menu"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {menuOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
+            </button>
+          </div>
         </div>
 
         {menuOpen && (
@@ -69,14 +95,14 @@ export default function Navbar() {
               className="block px-4 py-3 rounded-xl text-gray-700 hover:bg-primary-light hover:text-primary font-medium transition-colors"
               onClick={() => setMenuOpen(false)}
             >
-              Imóveis
+              {t("nav.imoveis", lang)}
             </Link>
             <Link
               href="/cadastrar"
               className="block px-4 py-3 rounded-xl bg-primary text-white text-center font-semibold hover:bg-primary-dark transition-colors"
               onClick={() => setMenuOpen(false)}
             >
-              Listar Imóvel
+              {t("nav.listar", lang)}
             </Link>
           </div>
         )}

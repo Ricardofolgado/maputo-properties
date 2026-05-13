@@ -1,13 +1,18 @@
+"use client";
+
 import Link from "next/link";
 import type { Property } from "@/lib/types";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { t } from "@/lib/i18n";
 
 interface PropertyCardProps {
   property: Property;
 }
 
 export default function PropertyCard({ property }: PropertyCardProps) {
+  const { lang } = useLanguage();
   const photo = property.photos?.[0] || "/placeholder.svg";
-  const formattedPrice = new Intl.NumberFormat("pt-MZ", {
+  const formattedPrice = new Intl.NumberFormat(lang === "pt" ? "pt-MZ" : "en-US", {
     style: "currency",
     currency: "MZN",
     minimumFractionDigits: 0,
@@ -30,17 +35,17 @@ export default function PropertyCard({ property }: PropertyCardProps) {
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           <div className="absolute top-3 left-3 flex gap-2">
             <span className="bg-primary text-white text-xs font-semibold px-3 py-1 rounded-full shadow-lg">
-              {property.type}
+              {t(`type.${property.type}`, lang)}
             </span>
             <span className={`text-xs font-semibold px-3 py-1 rounded-full shadow-lg text-white ${
               property.listing_type === "venda" ? "bg-accent-teal" : "bg-accent-gold"
             }`}>
-              {property.listing_type === "venda" ? "Venda" : "Arrendamento"}
+              {t(property.listing_type, lang)}
             </span>
           </div>
           {property.furnished && (
             <div className="absolute top-3 right-3 bg-white/90 text-xs font-medium px-2 py-1 rounded-full text-gray-700 shadow-lg backdrop-blur-sm">
-              Mobiliado
+              {t("card.furnished", lang)}
             </div>
           )}
         </div>
@@ -52,10 +57,7 @@ export default function PropertyCard({ property }: PropertyCardProps) {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
           </svg>
-          <span>
-            {property.city}
-            {property.neighborhood && `, ${property.neighborhood}`}
-          </span>
+          <span>{property.city}{property.neighborhood && `, ${property.neighborhood}`}</span>
         </div>
 
         <Link href={`/imovel/${property.id}`}>

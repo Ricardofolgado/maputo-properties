@@ -2,10 +2,13 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { PROVINCES, CITIES_BY_PROVINCE } from "@/lib/types";
+import { PROVINCES } from "@/lib/types";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { t } from "@/lib/i18n";
 
 export default function SearchBar() {
   const router = useRouter();
+  const { lang } = useLanguage();
   const [search, setSearch] = useState({
     province: "",
     type: "",
@@ -36,7 +39,7 @@ export default function SearchBar() {
               onChange={(e) => setSearch({ ...search, province: e.target.value })}
               className="w-full pl-10 pr-4 py-3 rounded-xl border-0 bg-gray-50 text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary appearance-none cursor-pointer text-sm"
             >
-              <option value="">Província</option>
+              <option value="">{t("hero.search.city", lang)}</option>
               {PROVINCES.map((p) => <option key={p} value={p}>{p}</option>)}
             </select>
           </div>
@@ -50,11 +53,11 @@ export default function SearchBar() {
               onChange={(e) => setSearch({ ...search, type: e.target.value })}
               className="w-full pl-10 pr-4 py-3 rounded-xl border-0 bg-gray-50 text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary appearance-none cursor-pointer text-sm"
             >
-              <option value="">Tipo</option>
-              <option value="Apartamento">Apartamento</option>
-              <option value="Casa">Casa</option>
-              <option value="Terreno">Terreno</option>
-              <option value="Comercial">Comercial</option>
+              <option value="">{t("hero.search.type", lang)}</option>
+              <option value="Apartamento">{t("type.Apartamento", lang)}</option>
+              <option value="Casa">{t("type.Casa", lang)}</option>
+              <option value="Terreno">{t("type.Terreno", lang)}</option>
+              <option value="Comercial">{t("type.Comercial", lang)}</option>
             </select>
           </div>
 
@@ -67,9 +70,9 @@ export default function SearchBar() {
               onChange={(e) => setSearch({ ...search, listing_type: e.target.value })}
               className="w-full pl-10 pr-4 py-3 rounded-xl border-0 bg-gray-50 text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary appearance-none cursor-pointer text-sm"
             >
-              <option value="">Finalidade</option>
-              <option value="venda">Venda</option>
-              <option value="arrendamento">Arrendamento</option>
+              <option value="">{t("hero.search.purpose", lang)}</option>
+              <option value="venda">{t("venda", lang)}</option>
+              <option value="arrendamento">{t("arrendamento", lang)}</option>
             </select>
           </div>
 
@@ -80,7 +83,7 @@ export default function SearchBar() {
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
-            Pesquisar
+            {t("hero.search.btn", lang)}
           </button>
         </div>
       </div>
