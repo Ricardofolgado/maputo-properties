@@ -1,8 +1,16 @@
 import { supabase } from "./supabase";
 import type { Property, PropertyFilters, PropertyFormData } from "./types";
 
+export function requireSupabase() {
+  if (!supabase) {
+    throw new Error("Supabase não configurado. Configure as variáveis de ambiente.");
+  }
+  return supabase;
+}
+
 export async function getApprovedProperties(filters?: PropertyFilters) {
-  let query = supabase
+  const db = requireSupabase();
+  let query = db
     .from("properties")
     .select("*")
     .eq("status", "approved")
@@ -30,7 +38,8 @@ export async function getApprovedProperties(filters?: PropertyFilters) {
 }
 
 export async function getPropertyById(id: string) {
-  const { data, error } = await supabase
+  const db = requireSupabase();
+  const { data, error } = await db
     .from("properties")
     .select("*")
     .eq("id", id)
@@ -40,7 +49,8 @@ export async function getPropertyById(id: string) {
 }
 
 export async function getFeaturedProperties(limit = 6) {
-  const { data, error } = await supabase
+  const db = requireSupabase();
+  const { data, error } = await db
     .from("properties")
     .select("*")
     .eq("status", "approved")
@@ -51,7 +61,8 @@ export async function getFeaturedProperties(limit = 6) {
 }
 
 export async function createProperty(formData: PropertyFormData) {
-  const { data, error } = await supabase
+  const db = requireSupabase();
+  const { data, error } = await db
     .from("properties")
     .insert([{ ...formData, status: "pending" }])
     .select()
@@ -61,13 +72,14 @@ export async function createProperty(formData: PropertyFormData) {
 }
 
 export async function uploadPhoto(file: File, propertyId: string, index: number) {
+  const db = requireSupabase();
   const fileExt = file.name.split(".").pop();
   const fileName = `${propertyId}/${index}.${fileExt}`;
-  const { error } = await supabase.storage
+  const { error } = await db.storage
     .from("property-photos")
     .upload(fileName, file);
   if (error) throw error;
-  const { data: urlData } = supabase.storage
+  const { data: urlData } = db.storage
     .from("property-photos")
     .getPublicUrl(fileName);
   return urlData.publicUrl;

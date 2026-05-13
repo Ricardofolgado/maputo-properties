@@ -1,10 +1,11 @@
 "use server";
 
-import { supabaseAdmin } from "./supabase-admin";
+import { requireAdmin } from "./supabase-admin";
 import type { Property } from "./types";
 
 export async function approveProperty(id: string) {
-  const { error } = await supabaseAdmin
+  const db = requireAdmin();
+  const { error } = await db
     .from("properties")
     .update({ status: "approved" })
     .eq("id", id);
@@ -12,7 +13,8 @@ export async function approveProperty(id: string) {
 }
 
 export async function deleteProperty(id: string) {
-  const { data: property } = await supabaseAdmin
+  const db = requireAdmin();
+  const { data: property } = await db
     .from("properties")
     .select("photos")
     .eq("id", id)
@@ -23,10 +25,10 @@ export async function deleteProperty(id: string) {
       const path = url.split("/").slice(-2).join("/");
       return path;
     });
-    await supabaseAdmin.storage.from("property-photos").remove(files);
+    await db.storage.from("property-photos").remove(files);
   }
 
-  const { error } = await supabaseAdmin
+  const { error } = await db
     .from("properties")
     .delete()
     .eq("id", id);
@@ -34,7 +36,8 @@ export async function deleteProperty(id: string) {
 }
 
 export async function getPendingProperties() {
-  const { data, error } = await supabaseAdmin
+  const db = requireAdmin();
+  const { data, error } = await db
     .from("properties")
     .select("*")
     .eq("status", "pending")
