@@ -16,8 +16,11 @@ export async function getApprovedProperties(filters?: PropertyFilters) {
     .eq("status", "approved")
     .order("created_at", { ascending: false });
 
+  if (filters?.province) {
+    query = query.eq("province", filters.province);
+  }
   if (filters?.city) {
-    query = query.eq("city", filters.city);
+    query = query.ilike("city", `%${filters.city}%`);
   }
   if (filters?.type) {
     query = query.eq("type", filters.type);

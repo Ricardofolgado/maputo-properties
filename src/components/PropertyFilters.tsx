@@ -1,8 +1,8 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
+import { PROVINCES, CITIES_BY_PROVINCE } from "@/lib/types";
 
-const cities = ["Maputo", "Matola", "Beira", "Nampula"];
 const types = ["Apartamento", "Casa", "Terreno", "Comercial"];
 
 export default function PropertyFilters() {
@@ -10,6 +10,7 @@ export default function PropertyFilters() {
   const searchParams = useSearchParams();
 
   const currentFilters = {
+    province: searchParams.get("province") || "",
     city: searchParams.get("city") || "",
     type: searchParams.get("type") || "",
     listing_type: searchParams.get("listing_type") || "",
@@ -29,6 +30,7 @@ export default function PropertyFilters() {
   }
 
   const hasFilters = Object.values(currentFilters).some((v) => v);
+  const cities = currentFilters.province ? CITIES_BY_PROVINCE[currentFilters.province] || [] : [];
 
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 space-y-6 sticky top-24">
@@ -46,42 +48,62 @@ export default function PropertyFilters() {
         )}
       </div>
 
+      <FilterGroup label="Província">
+        <select
+          value={currentFilters.province}
+          onChange={(e) => updateFilter("province", e.target.value)}
+          className="w-full px-3 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-primary appearance-none cursor-pointer"
+        >
+          <option value="">Todas as Províncias</option>
+          {PROVINCES.map((p) => <option key={p} value={p}>{p}</option>)}
+        </select>
+      </FilterGroup>
+
       <FilterGroup label="Cidade">
-        <FilterSelect value={currentFilters.city} onChange={(v) => updateFilter("city", v)} options={cities} placeholder="Todas" />
+        <select
+          value={currentFilters.city}
+          onChange={(e) => updateFilter("city", e.target.value)}
+          disabled={!currentFilters.province}
+          className="w-full px-3 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-primary appearance-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          <option value="">{currentFilters.province ? "Todas as Cidades" : "Selecione província"}</option>
+          {cities.map((c) => <option key={c} value={c}>{c}</option>)}
+        </select>
       </FilterGroup>
 
       <FilterGroup label="Tipo de Imóvel">
-        <FilterSelect value={currentFilters.type} onChange={(v) => updateFilter("type", v)} options={types} placeholder="Todos" />
+        <select
+          value={currentFilters.type}
+          onChange={(e) => updateFilter("type", e.target.value)}
+          className="w-full px-3 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-primary appearance-none cursor-pointer"
+        >
+          <option value="">Todos</option>
+          {types.map((t) => <option key={t} value={t}>{t}</option>)}
+        </select>
       </FilterGroup>
 
       <FilterGroup label="Finalidade">
-        <FilterSelect
+        <select
           value={currentFilters.listing_type}
-          onChange={(v) => updateFilter("listing_type", v)}
-          options={["venda", "arrendamento"]}
-          labels={["Venda", "Arrendamento"]}
-          placeholder="Todos"
-        />
+          onChange={(e) => updateFilter("listing_type", e.target.value)}
+          className="w-full px-3 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-primary appearance-none cursor-pointer"
+        >
+          <option value="">Todos</option>
+          <option value="venda">Venda</option>
+          <option value="arrendamento">Arrendamento</option>
+        </select>
       </FilterGroup>
 
       <FilterGroup label="Preço Mínimo (MZN)">
-        <input
-          type="number"
-          placeholder="Ex: 1.000.000"
-          value={currentFilters.min_price}
+        <input type="number" placeholder="Ex: 1.000.000" value={currentFilters.min_price}
           onChange={(e) => updateFilter("min_price", e.target.value)}
-          className="w-full px-3 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-        />
+          className="w-full px-3 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-primary transition-all" />
       </FilterGroup>
 
       <FilterGroup label="Preço Máximo (MZN)">
-        <input
-          type="number"
-          placeholder="Ex: 10.000.000"
-          value={currentFilters.max_price}
+        <input type="number" placeholder="Ex: 10.000.000" value={currentFilters.max_price}
           onChange={(e) => updateFilter("max_price", e.target.value)}
-          className="w-full px-3 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-        />
+          className="w-full px-3 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-primary transition-all" />
       </FilterGroup>
     </div>
   );
@@ -93,34 +115,5 @@ function FilterGroup({ label, children }: { label: string; children: React.React
       <label className="block text-sm font-medium text-gray-700 mb-2">{label}</label>
       {children}
     </div>
-  );
-}
-
-function FilterSelect({
-  value,
-  onChange,
-  options,
-  labels,
-  placeholder,
-}: {
-  value: string;
-  onChange: (v: string) => void;
-  options: string[];
-  labels?: string[];
-  placeholder: string;
-}) {
-  return (
-    <select
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-      className="w-full px-3 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all appearance-none cursor-pointer"
-    >
-      <option value="">{placeholder}</option>
-      {options.map((opt, i) => (
-        <option key={opt} value={opt}>
-          {labels?.[i] || opt}
-        </option>
-      ))}
-    </select>
   );
 }

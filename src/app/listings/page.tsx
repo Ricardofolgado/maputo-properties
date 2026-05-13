@@ -12,6 +12,7 @@ export default async function ListingsPage({
 }: ListingsPageProps) {
   const params = await searchParams;
   const filters: Filters = {
+    province: params.province,
     city: params.city,
     type: params.type,
     listing_type: params.listing_type,

@@ -84,7 +84,7 @@ export default function AdminPage() {
                 placeholder="Palavra-passe"
               />
             </div>
-            <button type="submit" className="w-full bg-gradient-to-r from-primary to-emerald-500 text-white py-3 rounded-xl font-semibold hover:from-primary-dark hover:to-emerald-600 transition-all active:scale-[0.98]">
+            <button type="submit" className="w-full bg-gradient-to-r from-primary to-amber-500 text-white py-3 rounded-xl font-semibold hover:from-primary-dark hover:to-amber-600 transition-all active:scale-[0.98]">
               Entrar
             </button>
           </form>
@@ -109,7 +109,7 @@ export default function AdminPage() {
       </div>
 
       {actionMsg && (
-        <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-xl mb-4 text-sm flex items-center gap-2">
+        <div className="bg-primary-light border border-primary/20 text-primary px-4 py-3 rounded-xl mb-4 text-sm flex items-center gap-2">
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
@@ -132,8 +132,8 @@ export default function AdminPage() {
         </div>
       ) : pendingProps.length === 0 ? (
         <div className="text-center py-20 bg-gray-50 rounded-2xl">
-          <div className="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-6">
-            <svg className="w-10 h-10 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="w-20 h-20 bg-primary-light rounded-full flex items-center justify-center mx-auto mb-6">
+            <svg className="w-10 h-10 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           </div>

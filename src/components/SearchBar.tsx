@@ -2,11 +2,12 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { PROVINCES, CITIES_BY_PROVINCE } from "@/lib/types";
 
 export default function SearchBar() {
   const router = useRouter();
   const [search, setSearch] = useState({
-    city: "",
+    province: "",
     type: "",
     listing_type: "",
   });
@@ -14,7 +15,7 @@ export default function SearchBar() {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     const params = new URLSearchParams();
-    if (search.city) params.set("city", search.city);
+    if (search.province) params.set("province", search.province);
     if (search.type) params.set("type", search.type);
     if (search.listing_type) params.set("listing_type", search.listing_type);
     const qs = params.toString();
@@ -22,11 +23,8 @@ export default function SearchBar() {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="relative animate-slide-up"
-    >
-      <div className="bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl shadow-black/10 p-3 sm:p-4 max-w-3xl mx-auto -mb-24 relative z-10 border border-white/20">
+    <form onSubmit={handleSubmit} className="relative animate-slide-up">
+      <div className="bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl shadow-black/10 p-3 sm:p-4 max-w-4xl mx-auto -mb-24 relative z-10 border border-white/20">
         <div className="grid grid-cols-1 sm:grid-cols-4 gap-2">
           <div className="relative">
             <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -34,15 +32,12 @@ export default function SearchBar() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
             </svg>
             <select
-              value={search.city}
-              onChange={(e) => setSearch({ ...search, city: e.target.value })}
+              value={search.province}
+              onChange={(e) => setSearch({ ...search, province: e.target.value })}
               className="w-full pl-10 pr-4 py-3 rounded-xl border-0 bg-gray-50 text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary appearance-none cursor-pointer text-sm"
             >
-              <option value="">Cidade</option>
-              <option value="Maputo">Maputo</option>
-              <option value="Matola">Matola</option>
-              <option value="Beira">Beira</option>
-              <option value="Nampula">Nampula</option>
+              <option value="">Província</option>
+              {PROVINCES.map((p) => <option key={p} value={p}>{p}</option>)}
             </select>
           </div>
 
@@ -80,7 +75,7 @@ export default function SearchBar() {
 
           <button
             type="submit"
-            className="flex items-center justify-center gap-2 bg-primary text-white py-3 px-6 rounded-xl font-semibold hover:bg-primary-dark transition-all hover:shadow-lg hover:shadow-primary/25 active:scale-[0.98] text-sm"
+            className="flex items-center justify-center gap-2 bg-primary text-white py-3 rounded-xl font-semibold hover:bg-primary-dark transition-all hover:shadow-lg hover:shadow-primary/25 active:scale-[0.98] text-sm"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />

@@ -7,6 +7,7 @@ import type { PropertyFormData } from "@/lib/types";
 
 const CITIES = ["Maputo", "Matola", "Beira", "Nampula"];
 const TYPES = ["Apartamento", "Casa", "Terreno", "Comercial"];
+const PROVINCES_LIST = ["Maputo Cidade", "Maputo Província", "Gaza", "Inhambane", "Sofala", "Manica", "Tete", "Zambézia", "Nampula", "Cabo Delgado", "Niassa"];
 
 export default function CadastrarPage() {
   const router = useRouter();
@@ -18,6 +19,7 @@ export default function CadastrarPage() {
     title: "",
     description: "",
     price: "",
+    province: "",
     city: "",
     neighborhood: "",
     type: "",
@@ -50,6 +52,7 @@ export default function CadastrarPage() {
         title: form.title,
         description: form.description,
         price: Number(form.price),
+        province: form.province,
         city: form.city,
         neighborhood: form.neighborhood,
         type: form.type as PropertyFormData["type"],
@@ -90,7 +93,7 @@ export default function CadastrarPage() {
   if (success) {
     return (
       <div className="max-w-lg mx-auto px-4 py-24 text-center">
-        <div className="w-20 h-20 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+        <div className="w-20 h-20 bg-gradient-to-br from-primary to-amber-400 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
           <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
@@ -151,12 +154,15 @@ export default function CadastrarPage() {
             </Field>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <Field label="Cidade *">
-              <select name="city" required value={form.city} onChange={handleChange} className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary text-sm appearance-none">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <Field label="Província *">
+              <select name="province" required value={form.province} onChange={handleChange} className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary text-sm appearance-none">
                 <option value="">Selecionar</option>
-                {CITIES.map((c) => <option key={c} value={c}>{c}</option>)}
+                {PROVINCES_LIST.map((p) => <option key={p} value={p}>{p}</option>)}
               </select>
+            </Field>
+            <Field label="Cidade *">
+              <input type="text" name="city" required value={form.city} onChange={handleChange} placeholder="Ex: Maputo" className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary text-sm" />
             </Field>
             <Field label="Bairro">
               <input type="text" name="neighborhood" value={form.neighborhood} onChange={handleChange} placeholder="Ex: Sommerschield" className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary text-sm" />
@@ -223,7 +229,7 @@ export default function CadastrarPage() {
         <button
           type="submit"
           disabled={submitting}
-          className="w-full bg-gradient-to-r from-primary to-emerald-500 text-white py-3.5 rounded-xl font-bold text-base hover:from-primary-dark hover:to-emerald-600 transition-all hover:shadow-lg hover:shadow-primary/25 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full bg-gradient-to-r from-primary to-amber-500 text-white py-3.5 rounded-xl font-bold text-base hover:from-primary-dark hover:to-amber-600 transition-all hover:shadow-lg hover:shadow-primary/25 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {submitting ? "A enviar..." : "Enviar Anúncio"}
         </button>

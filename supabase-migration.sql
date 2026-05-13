@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS properties (
   title TEXT NOT NULL,
   description TEXT NOT NULL,
   price BIGINT NOT NULL,
+  province TEXT NOT NULL DEFAULT '',
   city TEXT NOT NULL,
   neighborhood TEXT DEFAULT '',
   type TEXT NOT NULL CHECK (type IN ('Apartamento', 'Casa', 'Terreno', 'Comercial')),
@@ -21,13 +22,16 @@ CREATE TABLE IF NOT EXISTS properties (
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
+-- Add province column if upgrading from old schema
+ALTER TABLE properties ADD COLUMN IF NOT EXISTS province TEXT NOT NULL DEFAULT '';
+
 -- Index for performance
 CREATE INDEX IF NOT EXISTS idx_properties_status ON properties(status);
+CREATE INDEX IF NOT EXISTS idx_properties_province ON properties(province);
 CREATE INDEX IF NOT EXISTS idx_properties_city ON properties(city);
 CREATE INDEX IF NOT EXISTS idx_properties_type ON properties(type);
 CREATE INDEX IF NOT EXISTS idx_properties_listing_type ON properties(listing_type);
 CREATE INDEX IF NOT EXISTS idx_properties_created_at ON properties(created_at DESC);
 
--- Storage bucket for property photos
--- Run this in the Supabase Storage section or via SQL:
+-- Storage bucket for property photos (run separately in Storage UI)
 -- INSERT INTO storage.buckets (id, name, public) VALUES ('property-photos', 'property-photos', true);
