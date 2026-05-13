@@ -33,7 +33,7 @@ export default function PropertyCard({ property }: PropertyCardProps) {
               {property.type}
             </span>
             <span className={`text-xs font-semibold px-3 py-1 rounded-full shadow-lg text-white ${
-              property.listing_type === "venda" ? "bg-blue-500" : "bg-amber-500"
+              property.listing_type === "venda" ? "bg-accent-teal" : "bg-accent-gold"
             }`}>
               {property.listing_type === "venda" ? "Venda" : "Arrendamento"}
             </span>

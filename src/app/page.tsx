@@ -15,7 +15,7 @@ export default async function HomePage() {
       {/* Hero Section */}
       <section className="relative min-h-[600px] md:min-h-[700px] flex items-center overflow-hidden">
         {/* Background gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary-dark to-amber-900" />
+        <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary-dark to-stone-800" />
 
         {/* Animated decorative elements */}
         <div className="absolute inset-0 overflow-hidden">
@@ -38,12 +38,12 @@ export default async function HomePage() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-32 pb-40 md:pb-48">
           <div className="text-center max-w-3xl mx-auto mb-10">
             <div className="inline-flex items-center gap-2 bg-white/10 text-white/80 text-sm px-4 py-1.5 rounded-full backdrop-blur-sm mb-6 border border-white/10 animate-fade-in">
-              <span className="w-2 h-2 bg-amber-400 rounded-full animate-pulse" />
+              <span className="w-2 h-2 bg-amber-300 rounded-full animate-pulse" />
               Plataforma Imobiliária em Moçambique
             </div>
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 leading-tight animate-slide-up">
               Encontre o Imóvel{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-amber-400">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-stone-200">
                 Ideal
               </span>{" "}
               em Moçambique
@@ -169,7 +169,7 @@ export default async function HomePage() {
                 ),
                 title: "Pesquisa Inteligente",
                 desc: "Encontre rapidamente o imóvel ideal com os nossos filtros inteligentes por cidade, tipo e preço.",
-                gradient: "from-primary to-amber-400",
+                gradient: "from-primary to-accent-gold",
               },
               {
                 icon: (
@@ -177,7 +177,7 @@ export default async function HomePage() {
                 ),
                 title: "Contacto Direto",
                 desc: "Fale diretamente com o agente pelo WhatsApp sem intermediários. Resposta rápida e personalizada.",
-                gradient: "from-amber-500 to-amber-400",
+                gradient: "from-accent-gold to-stone-400",
               },
               {
                 icon: (
@@ -185,7 +185,7 @@ export default async function HomePage() {
                 ),
                 title: "Anúncios Verificados",
                 desc: "Todos os imóveis passam por uma verificação antes de serem publicados. Qualidade e confiança garantidas.",
-                gradient: "from-primary to-blue-500",
+                gradient: "from-accent-teal to-primary",
               },
             ].map((item, i) => (
               <div
@@ -209,7 +209,7 @@ export default async function HomePage() {
       {/* CTA Section */}
       <section className="py-20 md:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="relative bg-gradient-to-br from-primary via-primary-dark to-amber-900 rounded-3xl overflow-hidden">
+          <div className="relative bg-gradient-to-br from-primary via-primary-dark to-stone-900 rounded-3xl overflow-hidden">
             <div className="absolute inset-0">
               <div className="absolute -top-20 -right-20 w-60 h-60 rounded-full bg-white/5" />
               <div className="absolute -bottom-10 -left-10 w-40 h-40 rounded-full bg-white/5" />

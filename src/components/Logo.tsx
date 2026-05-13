@@ -23,13 +23,13 @@ export default function Logo({ className = "", showText = true, size = "md" }: L
         >
           <defs>
             <linearGradient id="logo-grad" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="#E85D3A" />
-              <stop offset="100%" stopColor="#F5A623" />
+              <stop offset="0%" stopColor="#8B7B6B" />
+              <stop offset="100%" stopColor="#C4A87C" />
             </linearGradient>
           </defs>
           <circle cx="50" cy="50" r="48" fill="url(#logo-grad)" />
           <path d="M50 18L22 40v32a4 4 0 004 4h16V58h16v18h16a4 4 0 004-4V40L50 18z" fill="white" className="drop-shadow-sm" />
-          <rect x="43" y="62" width="14" height="12" rx="2" fill="#E85D3A" />
+          <rect x="43" y="62" width="14" height="12" rx="2" fill="#8B7B6B" />
           <rect x="30" y="44" width="10" height="10" rx="1.5" fill="white" opacity="0.8" />
           <rect x="60" y="44" width="10" height="10" rx="1.5" fill="white" opacity="0.8" />
           <circle cx="72" cy="28" r="10" fill="#FFD700" opacity="0.9" />

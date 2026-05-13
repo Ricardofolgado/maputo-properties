@@ -103,7 +103,7 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
               Agente
             </h3>
             <div className="flex items-center gap-4 mb-6 pb-6 border-b border-gray-50">
-              <div className="w-14 h-14 bg-gradient-to-br from-primary to-amber-400 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg">
+              <div className="w-14 h-14 bg-gradient-to-br from-primary to-accent-gold rounded-full flex items-center justify-center flex-shrink-0 shadow-lg">
                 <span className="text-white font-bold text-xl">
                   {property.agent_name.charAt(0).toUpperCase()}
                 </span>

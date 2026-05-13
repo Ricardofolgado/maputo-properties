@@ -93,7 +93,7 @@ export default function CadastrarPage() {
   if (success) {
     return (
       <div className="max-w-lg mx-auto px-4 py-24 text-center">
-        <div className="w-20 h-20 bg-gradient-to-br from-primary to-amber-400 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+        <div className="w-20 h-20 bg-gradient-to-br from-primary to-accent-gold rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
           <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
@@ -229,7 +229,7 @@ export default function CadastrarPage() {
         <button
           type="submit"
           disabled={submitting}
-          className="w-full bg-gradient-to-r from-primary to-amber-500 text-white py-3.5 rounded-xl font-bold text-base hover:from-primary-dark hover:to-amber-600 transition-all hover:shadow-lg hover:shadow-primary/25 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full bg-gradient-to-r from-primary to-accent-gold text-white py-3.5 rounded-xl font-bold text-base hover:from-primary-dark hover:to-stone-500 transition-all hover:shadow-lg hover:shadow-primary/25 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {submitting ? "A enviar..." : "Enviar Anúncio"}
         </button>

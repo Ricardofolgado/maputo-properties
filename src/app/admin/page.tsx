@@ -84,7 +84,7 @@ export default function AdminPage() {
                 placeholder="Palavra-passe"
               />
             </div>
-            <button type="submit" className="w-full bg-gradient-to-r from-primary to-amber-500 text-white py-3 rounded-xl font-semibold hover:from-primary-dark hover:to-amber-600 transition-all active:scale-[0.98]">
+            <button type="submit" className="w-full bg-gradient-to-r from-primary to-accent-gold text-white py-3 rounded-xl font-semibold hover:from-primary-dark hover:to-stone-500 transition-all active:scale-[0.98]">
               Entrar
             </button>
           </form>
