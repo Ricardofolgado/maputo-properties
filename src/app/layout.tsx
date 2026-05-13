@@ -17,7 +17,10 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Maputo Properties - Imóveis em Moçambique",
   description:
-    "Encontre os melhores imóveis para comprar ou arrendar em Moçambique. Apartamentos, casas, terrenos e imóveis comerciais.",
+    "Encontre os melhores imóveis para comprar ou arrendar em Moçambique. Apartamentos, casas, terrenos e imóveis comerciais em Maputo, Matola, Beira e Nampula.",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
@@ -28,7 +31,7 @@ export default function RootLayout({
   return (
     <html
       lang="pt"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased scroll-smooth`}
     >
       <body className="min-h-full flex flex-col">
         <Navbar />

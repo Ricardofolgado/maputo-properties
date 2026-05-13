@@ -30,9 +30,9 @@ export default async function ListingsPage({
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Imóveis</h1>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-28">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-900">Imóveis</h1>
         <p className="text-gray-500 mt-1">
           {errorMsg
             ? "Configure a base de dados Supabase para ver os imóveis."
@@ -47,9 +47,9 @@ export default async function ListingsPage({
           <PropertyFilters />
         </aside>
 
-        <div className="flex-1">
+        <div className="flex-1 min-w-0">
           {errorMsg ? (
-            <div className="text-center py-16 bg-gray-50 rounded-xl">
+            <div className="text-center py-20 bg-gray-50 rounded-2xl">
               <p className="text-gray-500">{errorMsg}</p>
             </div>
           ) : properties.length > 0 ? (
@@ -59,26 +59,14 @@ export default async function ListingsPage({
               ))}
             </div>
           ) : (
-            <div className="text-center py-16 bg-gray-50 rounded-xl">
-              <svg
-                className="w-16 h-16 mx-auto text-gray-300 mb-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={1.5}
-                  d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
+            <div className="text-center py-20 bg-gray-50 rounded-2xl">
+              <svg className="w-16 h-16 mx-auto text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               <h3 className="text-lg font-medium text-gray-600 mb-2">
                 Nenhum imóvel encontrado
               </h3>
-              <p className="text-gray-400">
-                Tente ajustar os filtros da pesquisa.
-              </p>
+              <p className="text-gray-400">Tente ajustar os filtros da pesquisa.</p>
             </div>
           )}
         </div>
